@@ -1,1 +1,132 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Explore menu — GreenFork</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body class="app-page"><header class="topbar"><a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">✳</span><span>green<span class="brand-accent">fork</span></span></a><nav><a class="nav-link active" href="{{ url_for('menu') }}">Explore</a><a class="nav-link" href="#why">Our promise</a></nav><a class="cart-link" href="{{ url_for('cart') }}">Basket <span class="cart-count">{{ cart_count }}</span></a></header><main class="container"><section class="menu-hero"><div><p class="eyebrow">A LITTLE FRESHNESS GOES A LONG WAY</p><h1>Eat well.<br><span>Live colourful.</span></h1><p class="muted">Wholesome bites and feel-good sips, made fresh for your day.</p><a href="#food-grid" class="text-link">Explore the menu <span>↓</span></a></div><div class="menu-hero-image"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=85" alt="Fresh green salad"><span class="image-note">NOURISH YOURSELF</span></div></section>{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-wrap">{% for category, message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}</div>{% endif %}{% endwith %}<section class="food-section" id="food-grid"><div class="section-heading"><div><p class="eyebrow">MADE WITH LOVE</p><h2>Something fresh for you</h2></div><form class="search-form" method="get" action="{{ url_for('menu') }}"><input name="q" value="{{ search }}" placeholder="Search your favourites…" aria-label="Search menu"><button aria-label="Search">⌕</button></form></div><div class="filters">{% for cat in categories %}<a class="filter-chip {% if category == cat %}selected{% endif %}" href="{{ url_for('menu', category=cat, q=search) }}">{{ cat }}</a>{% endfor %}</div><div class="food-grid">{% for food in foods %}<article class="food-card"><div class="food-image"><img src="{{ food.image }}" alt="{{ food.name }}"><span class="food-tag">{{ food.tag }}</span><span class="heart">♡</span></div><div class="food-info"><div class="food-meta"><span>{{ food.category }}</span><span class="rating">★ 4.9</span></div><h3>{{ food.name }}</h3><p>{{ food.desc }}</p><div class="food-bottom"><strong>RM {{ '%.2f'|format(food.price) }}</strong><form method="post" action="{{ url_for('add_to_cart', item_id=food.id) }}"><button class="add-btn" aria-label="Add {{ food.name }} to basket">+</button></form></div></div></article>{% else %}<div class="empty-state"><h3>No dishes found</h3><p>Try another search or category.</p><a class="btn btn-green" href="{{ url_for('menu') }}">View all food</a></div>{% endfor %}</div></section><section class="promise" id="why"><span class="promise-icon">✳</span><div><p class="eyebrow">OUR LITTLE PROMISE</p><h2>Fresh ingredients. Feel-good food.</h2><p>Simple ingredients, colourful plates, and a little extra love in every order.</p></div><a class="text-link" href="{{ url_for('cart') }}">Your basket →</a></section></main><footer class="footer"><a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">✳</span><span>green<span class="brand-accent">fork</span></span></a><span>Made fresh, just for you.</span></footer><script src="{{ url_for('static', filename='app.js') }}"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore menu — GreenFork</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="app-page">
+
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">
+      <span class="brand-mark">✳</span><span>green<span class="brand-accent">fork</span></span>
+    </a>
+    <nav>
+      <a class="nav-link active" href="{{ url_for('menu') }}">Explore</a>
+      <a class="nav-link" href="#why">Our promise</a>
+    </nav>
+    <a class="cart-link" href="{{ url_for('cart') }}">
+      Basket <span class="cart-count">{{ cart_count }}</span>
+    </a>
+  </header>
+
+  <main class="container">
+    <!-- Hero Banner Section -->
+    <section class="menu-hero">
+      <div>
+        <p class="eyebrow">A LITTLE FRESHNESS GOES A LONG WAY</p>
+        <h1>Eat well.<br><span>Live colourful.</span></h1>
+        <p class="muted">Wholesome bites and feel-good sips, made fresh for your day.</p>
+        <a href="#food-grid" class="text-link">Explore the menu <span>↓</span></a>
+      </div>
+      <div class="menu-hero-image">
+        <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=85" alt="Fresh green salad">
+        <span class="image-note">NOURISH YOURSELF</span>
+      </div>
+    </section>
+
+    <!-- Flash Alert Notifications -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrap">
+          {% for category, message in messages %}
+            <p class="flash {{ category }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Filterable Interactive Food Grid -->
+    <section class="food-section" id="food-grid">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">MADE WITH LOVE</p>
+          <h2>Something fresh for you</h2>
+        </div>
+        <form class="search-form" method="get" action="{{ url_for('menu') }}">
+          <input name="q" value="{{ search }}" placeholder="Search your favourites…" aria-label="Search menu">
+          <button aria-label="Search">⌕</button>
+        </form>
+      </div>
+
+      <!-- Categories Filter Chips -->
+      <div class="filters">
+        {% for cat in categories %}
+          <a class="filter-chip {% if category == cat %}selected{% endif %}" href="{{ url_for('menu', category=cat, q=search) }}">
+            {{ cat }}
+          </a>
+        {% endfor %}
+      </div>
+
+      <!-- Food Items Cards Grid Layout -->
+      <div class="food-grid">
+        {% for food in foods %}
+          <article class="food-card">
+            <div class="food-image">
+              <img src="{{ food.image }}" alt="{{ food.name }}">
+              <span class="food-tag">{{ food.tag }}</span>
+              <span class="heart">♡</span>
+            </div>
+            
+            <div class="food-info">
+              <div class="food-meta">
+                <span>{{ food.category }}</span>
+                <span class="rating">★ 4.9</span>
+              </div>
+              <h3>{{ food.name }}</h3>
+              <p>{{ food.desc }}</p>
+              
+              <div class="food-bottom">
+                <strong>RM {{ '%.2f'|format(food.price) }}</strong>
+                <form method="post" action="{{ url_for('add_to_cart', item_id=food.id) }}">
+                  <button class="add-btn" aria-label="Add {{ food.name }} to basket">+</button>
+                </form>
+              </div>
+            </div>
+          </article>
+        {% else %}
+          <!-- Fallback Container if No Food Found -->
+          <div class="empty-state">
+            <h3>No dishes found</h3>
+            <p>Try another search or category.</p>
+            <a class="btn btn-green" href="{{ url_for('menu') }}">View all food</a>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Branding Philosophy and Promise Section -->
+    <section class="promise" id="why">
+      <span class="promise-icon">✳</span>
+      <div>
+        <p class="eyebrow">OUR LITTLE PROMISE</p>
+        <h2>Fresh ingredients. Feel-good food.</h2>
+        <p>Simple ingredients, colourful plates, and a little extra love in every order.</p>
+      </div>
+      <a class="text-link" href="{{ url_for('cart') }}">Your basket →</a>
+    </section>
+  </main>
+
+  <!-- Sticky/Standard Site Footer -->
+  <footer class="footer">
+    <a class="brand" href="{{ url_for('index') }}">
+      <span class="brand-mark">✳</span><span>green<span class="brand-accent">fork</span></span>
+    </a>
+    <span>Made fresh, just for you.</span>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

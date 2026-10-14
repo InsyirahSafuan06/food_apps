@@ -1,1 +1,60 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Order placed — GreenFork</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body class="app-page"><header class="topbar"><a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">✳</span><span>green<span class="brand-accent">fork</span></span></a><nav><a class="nav-link" href="{{ url_for('menu') }}">Explore menu</a></nav><a class="cart-link" href="{{ url_for('cart') }}">Basket <span class="cart-count">{{ cart_count }}</span></a></header><main class="container confirmation-wrap"><div class="success-badge">✓</div><p class="eyebrow">THAT'S A WRAP!</p><h1>Your order is in,<br><span>{{ order.name }}.</span></h1><p class="muted">Thanks for choosing fresh. Your feel-good food order has been recorded in this demo.</p><div class="order-ticket"><div class="ticket-head"><span>ORDER NUMBER</span><strong>{{ order.order_no }}</strong></div>{% for item in order['items'] %}<div class="summary-line"><span>{{ item.name }} × {{ item.qty }}</span><strong>RM {{ '%.2f'|format(item.subtotal) }}</strong></div>{% endfor %}<div class="summary-line total-line"><span>Total</span><strong>RM {{ '%.2f'|format(order.total) }}</strong></div><p class="delivery-address"><strong>Deliver to</strong><br>{{ order.name }} · {{ order.phone }}<br>{{ order.address }}</p></div><a class="btn btn-green" href="{{ url_for('menu') }}">Back to menu <span>→</span></a></main><script src="{{ url_for('static', filename='app.js') }}"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order placed — GreenFork</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="app-page">
+
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">
+      <span class="brand-mark">✳</span><span>green<span class="brand-accent">fork</span></span>
+    </a>
+    <nav>
+      <a class="nav-link" href="{{ url_for('menu') }}">Explore menu</a>
+    </nav>
+    <a class="cart-link" href="{{ url_for('cart') }}">
+      Basket <span class="cart-count">{{ cart_count }}</span>
+    </a>
+  </header>
+
+  <main class="container confirmation-wrap">
+    <div class="success-badge">✓</div>
+    <p class="eyebrow">THAT'S A WRAP!</p>
+    <h1>Your order is in,<br><span>{{ order.name }}.</span></h1>
+    <p class="muted">Thanks for choosing fresh. Your feel-good food order has been recorded in this demo.</p>
+
+    <!-- Order Details Ticket -->
+    <div class="order-ticket">
+      <div class="ticket-head">
+        <span>ORDER NUMBER</span>
+        <strong>{{ order.order_no }}</strong>
+      </div>
+
+      {% for item in order['items'] %}
+        <div class="summary-line">
+          <span>{{ item.name }} × {{ item.qty }}</span>
+          <strong>RM {{ '%.2f'|format(item.subtotal) }}</strong>
+        </div>
+      {% endfor %}
+
+      <div class="summary-line total-line">
+        <span>Total</span>
+        <strong>RM {{ '%.2f'|format(order.total) }}</strong>
+      </div>
+
+      <p class="delivery-address">
+        <strong>Deliver to</strong><br>
+        {{ order.name }} · {{ order.phone }}<br>
+        {{ order.address }}
+      </p>
+    </div>
+
+    <a class="btn btn-green" href="{{ url_for('menu') }}">Back to menu <span>→</span></a>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

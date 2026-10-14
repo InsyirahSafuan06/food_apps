@@ -1,3 +1,48 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GreenFork — Eat well, feel good</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
-<body class="splash-page"><div class="splash-orb orb-one"></div><div class="splash-orb orb-two"></div><main class="splash-wrap"><div class="brand brand-light"><span class="brand-mark">✳</span><span>green<span class="brand-accent">fork</span></span></div><div class="hero-art"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=90" alt="Colourful healthy salad bowl"><span class="floating-leaf leaf-a">✦</span><span class="floating-leaf leaf-b">✳</span><span class="fresh-stamp">FRESH<br>DAILY</span></div><div class="splash-copy"><p class="eyebrow eyebrow-light">GOOD FOOD, GOOD MOOD</p><h1>Buy your healthy<br>food <em>now!</em></h1><p class="splash-subtitle">Feel good from the inside out.<br>Fresh, colourful food made for you.</p><a class="btn btn-cream btn-start" href="{{ url_for('menu') }}"><span class="btn-icon">↗</span> GET STARTED</a><p class="tiny-note">Fresh choices. Happy days.</p></div></main><script src="{{ url_for('static', filename='app.js') }}"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GreenFork — Eat well, feel good</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="splash-page">
+
+  <!-- Background Decorative Orbs -->
+  <div class="splash-orb orb-one"></div>
+  <div class="splash-orb orb-two"></div>
+
+  <main class="splash-wrap">
+    
+    <div class="brand brand-light">
+      <span class="brand-mark">✳</span><span>green<span class="brand-accent">fork</span></span>
+    </div>
+
+    <!-- Hero Image Artwork Section -->
+    <div class="hero-art">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=90" alt="Colourful healthy salad bowl">
+      <span class="floating-leaf leaf-a">✦</span>
+      <span class="floating-leaf leaf-b">✳</span>
+      <span class="fresh-stamp">FRESH<br>DAILY</span>
+    </div>
+
+    <!-- Promotional Call to Action Block -->
+    <div class="splash-copy">
+      <p class="eyebrow eyebrow-light">GOOD FOOD, GOOD MOOD</p>
+      <h1>Buy your healthy<br>food <em>now!</em></h1>
+      <p class="splash-subtitle">
+        Feel good from the inside out.<br>
+        Fresh, colourful food made for you.
+      </p>
+      
+      <a class="btn btn-cream btn-start" href="{{ url_for('menu') }}">
+        <span class="btn-icon">↗</span> GET STARTED
+      </a>
+      
+      <p class="tiny-note">Fresh choices. Happy days.</p>
+    </div>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
